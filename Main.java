@@ -5,6 +5,7 @@
 package A1_2.Procesos_saulo_perez;
 
 import java.io.IOException;
+import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -38,8 +39,21 @@ public class Main {
             Process p = pb.start();
             while(p.isAlive()) {
                 System.out.println("Esperando...");
+                sleep(5000);
             }
-        } catch (IOException ex) {
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public void ejecutaComandoyEspera(String comando, String argumentos, String metodo) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder(comando, argumentos, metodo);
+            Process p = pb.start();
+            sleep(5000);
+            if(p.isAlive()) {
+                p.destroy();
+            }
+        } catch (IOException | InterruptedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
