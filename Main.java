@@ -25,8 +25,11 @@ public class Main {
         try {
             ProcessBuilder pb = new ProcessBuilder(comando, argumentos, metodo);
             Process p = pb.start();
+            p.waitFor();
         } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (InterruptedException ex) {
+            System.out.println("El proceso ha sido interrumpido");
         }
     }
 }
