@@ -4,8 +4,13 @@
  */
 package A1_2.Procesos_saulo_perez;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 import static java.lang.Thread.sleep;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -67,6 +72,27 @@ public class Main {
             p.waitFor();
             System.out.println("El proceso se ha ejecutado en: " + pb.directory());
         } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void buscayGuarda(String palabra, String entrada, String salida) {
+        ProcessBuilder pb = new ProcessBuilder("find", "", entrada, salida);
+        File fSalida = new File(salida);
+        
+        try {
+            Process p = pb.start();
+            BufferedReader br = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            String linea;
+            if(!fSalida.exists()) {
+                fSalida.createNewFile();
+            }
+            OutputStreamWriter osw = new FileWriter(fSalida);
+            BufferedWriter bw = new BufferedWriter(osw);
+            while((linea = br.readLine()) != null) {
+                bw.write(linea);
+            }
+        } catch (IOException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
