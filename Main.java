@@ -4,6 +4,10 @@
  */
 package A1_2.Procesos_saulo_perez;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author Saulo
@@ -17,4 +21,12 @@ public class Main {
         // TODO code application logic here
     }
     
+    public void ejecutaComando(String comando, String argumentos, String metodo) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder(comando, argumentos, metodo);
+            Process p = pb.start();
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
