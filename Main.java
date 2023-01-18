@@ -32,4 +32,15 @@ public class Main {
             System.out.println("El proceso ha sido interrumpido");
         }
     }
+    public void ejecutaComandoyComprueba(String comando, String argumentos, String metodo) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder(comando, argumentos, metodo);
+            Process p = pb.start();
+            while(p.isAlive()) {
+                System.out.println("Esperando...");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }
