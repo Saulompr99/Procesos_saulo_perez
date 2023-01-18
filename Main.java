@@ -4,6 +4,7 @@
  */
 package A1_2.Procesos_saulo_perez;
 
+import java.io.File;
 import java.io.IOException;
 import static java.lang.Thread.sleep;
 import java.util.logging.Level;
@@ -53,6 +54,18 @@ public class Main {
             if(p.isAlive()) {
                 p.destroy();
             }
+        } catch (IOException | InterruptedException ex) {
+            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public void ejecutaComandoDirectorio(String comando, String argumentos, String directorio) {
+        try {
+            ProcessBuilder pb = new ProcessBuilder(comando, argumentos);
+            pb.directory(new File(directorio));
+            Process p = pb.start();
+            p.waitFor();
+            System.out.println("El proceso se ha ejecutado en: " + pb.directory());
         } catch (IOException | InterruptedException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
